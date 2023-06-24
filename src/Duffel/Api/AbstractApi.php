@@ -17,6 +17,8 @@ abstract class AbstractApi {
    */
   private $client;
 
+  public $meta;
+
   /**
    *
    * @param Client $client
@@ -25,6 +27,11 @@ abstract class AbstractApi {
    */
   public function __construct(Client $client) {
     $this->client = $client;
+  }
+
+  public function getLastMeta():array
+  {
+	  return $this->meta;
   }
 
   /**
@@ -145,7 +152,12 @@ abstract class AbstractApi {
       return null !== $value;
     });
 
-    return $uri;
+	$queryParameters = [];
+	foreach ($query as $key => $value) {
+		$queryParameters[] = $key.'='.$value;
+	}
+
+    return $uri . '?' . implode('&', $queryParameters);
   }
 
   /**

@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Duffel\Api;
 
+use Duffel\HttpClient\ResponseParser;
+
 class OrderCancellations extends AbstractApi {
   /**
    * @return mixed
    */
-  public function all() {
-    return $this->get('/air/order_cancellations');
+  public function all(array $parameters = []) {
+	  $response = $this->getAsResponse('/air/order_cancellations', $parameters);
+	  $this->meta = ResponseParser::getContent($response, 'meta');
+
+	  return ResponseParser::getContent($response);
   }
 
   /**

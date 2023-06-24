@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace Duffel\Api;
 
+use Duffel\HttpClient\ResponseParser;
+
 class OrderChangeOffers extends AbstractApi {
   /**
    * @param string $orderChangeRequestId
    *
    * @return mixed
    */
-  public function all(string $orderChangeRequestId = '') {
-    if ('' === $orderChangeRequestId) {
-      return $this->get('/air/order_change_offers');
+  public function all(string $orderChangeRequestId = '', array $parameters = []) {
+    if ('' !== $orderChangeRequestId) {
+	    $parameters['order_change_request_id'] = self::encodePath($orderChangeRequestId);
     }
 
-    return $this->get('/air/order_change_offers?order_change_request_id='.self::encodePath($orderChangeRequestId));
+	  $response = $this->getAsResponse('/air/order_change_offers', $parameters);
+	  $this->meta = ResponseParser::getContent($response, 'meta');
+
+	  return ResponseParser::getContent($response);
   }
 
   /**

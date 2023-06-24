@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Duffel\Api;
 
 use Duffel\Exception\RuntimeException;
+use Duffel\HttpClient\ResponseParser;
 
 class OfferRequests extends AbstractApi {
   /**
@@ -13,7 +14,10 @@ class OfferRequests extends AbstractApi {
    * @return mixed
    */
   public function all(array $parameters = []) {
-    return $this->get('/air/offer_requests');
+	  $response = $this->getAsResponse('/air/offer_requests', $parameters);
+	  $this->meta = ResponseParser::getContent($response, 'meta');
+
+	  return ResponseParser::getContent($response);
   }
 
   /**

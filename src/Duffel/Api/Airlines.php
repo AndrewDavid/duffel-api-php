@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Duffel\Api;
 
+use Duffel\HttpClient\ResponseParser;
+
 class Airlines extends AbstractApi {
   /**
    * @param array $parameters
@@ -11,7 +13,10 @@ class Airlines extends AbstractApi {
    * @return mixed
    */
   public function all(array $parameters = []) {
-    return $this->get('/air/airlines');
+	  $response = $this->getAsResponse('/air/airlines', $parameters);
+	  $this->meta = ResponseParser::getContent($response, 'meta');
+
+	  return ResponseParser::getContent($response);
   }
 
   /**

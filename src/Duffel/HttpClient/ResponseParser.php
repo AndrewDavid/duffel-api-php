@@ -17,14 +17,14 @@ final class ResponseParser {
    *
    * @return mixed|string
    */
-  public static function getContent(ResponseInterface $response) {
+  public static function getContent(ResponseInterface $response, string $key = 'data') {
     $body = (string) $response->getBody();
 
     if (!\in_array($body, ['', 'null', 'true', 'false'], true) && 0 === \strpos($response->getHeaderLine(self::CONTENT_TYPE_HEADER), self::JSON_CONTENT_TYPE)) {
       $decoded = JsonArray::decode($body);
 
-      if (array_key_exists('data', $decoded)) {
-        return $decoded['data'];
+      if (array_key_exists($key, $decoded)) {
+        return $decoded[$key];
       }
 
       return $decoded;

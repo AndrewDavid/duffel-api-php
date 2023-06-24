@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace Duffel\Api;
 
+use Duffel\HttpClient\ResponseParser;
+
 class Offers extends AbstractApi {
   /**
    * @param string $offerRequestId
    *
    * @return mixed
    */
-  public function all(string $offerRequestId) {
-    return $this->get('/air/offers?offer_request_id='.self::encodePath($offerRequestId));
+  public function all(string $offerRequestId = '', array $parameters = []) {
+	  if ('' !== $offerRequestId) {
+		  $parameters['offer_request_id'] = self::encodePath($offerRequestId);
+	  }
+	  $response = $this->getAsResponse('/air/offers', $parameters);
+	  $this->meta = ResponseParser::getContent($response, 'meta');
+
+	  return ResponseParser::getContent($response);
   }
 
   /**
