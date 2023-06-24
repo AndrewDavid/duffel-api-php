@@ -1,14 +1,18 @@
 {
-  "name": "duffel/api",
+  "name": "andrewdavid/duffel-api-php",
   "type": "library",
-  "description": "Duffel API library for PHP",
+  "description": "Duffel API library for PHP (with missing features)",
   "keywords": ["duffel", "flights", "flights-api", "travel"],
-  "homepage": "https://duffel.com",
+  "homepage": "https://github.com/AndrewDavid/duffel-api-php",
   "license": "MIT",
   "authors": [
     {
       "name": "Duffel Technology Limited",
       "email": "help@duffel.com"
+    },
+    {
+      "name": "Andrew-David Jahchan",
+      "email": "hello@andrewdavid.net"
     }
   ],
   "require": {
