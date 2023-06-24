@@ -23,11 +23,15 @@ final class ResponseParser {
     if (!\in_array($body, ['', 'null', 'true', 'false'], true) && 0 === \strpos($response->getHeaderLine(self::CONTENT_TYPE_HEADER), self::JSON_CONTENT_TYPE)) {
       $decoded = JsonArray::decode($body);
 
+	  if ($key == '') {
+		  return $decoded;
+	  }
+
       if (array_key_exists($key, $decoded)) {
         return $decoded[$key];
       }
 
-      return $decoded;
+	  return [];
     }
 
     return $body;

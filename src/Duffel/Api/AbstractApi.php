@@ -29,7 +29,7 @@ abstract class AbstractApi {
     $this->client = $client;
   }
 
-  public function getLastMeta():array
+  public function getLastMeta()
   {
 	  return $this->meta;
   }
